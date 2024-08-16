@@ -35,4 +35,10 @@
   .btns {
     @apply px-2 py-5 mr-[6px] bg-transparent border cursor-pointer;
   }
+  .recommended-title {
+    @apply ml-5 mb-5 mt-5 text-xl;
+  }
+  .recommended-flex {
+    @apply flex ml-5;
+  }
 }
