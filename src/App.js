@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
-import Card from "./components/Card";
-import "./index.css";
 import Navigation from "./Navigation/Nav";
 import Products from "./Products/Products";
 import Recommended from "./Recommended/Recommended";
 import Sidebar from "./Sidebar/Sidebar";
+import Card from "./components/Card";
+import Footer from "./components/Footer/Footer";
+import Pagination from "./components/Pagination";
+import "./index.css";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -12,7 +14,9 @@ function App() {
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [query, setQuery] = useState("");
-  const [sortOrder, setSortOrder] = useState(null); // Sorting state
+  const [sortOrder, setSortOrder] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,16 +45,14 @@ function App() {
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
-    console.log(setSelectedCategory);
   };
 
   const handleClick = (event) => {
     setSelectedCategory(event.target.value);
-    console.log(setSelectedCategory);
   };
 
   const handleSortChange = (event) => {
-    setSortOrder(event.target.value); // Update sort order
+    setSortOrder(event.target.value);
   };
 
   const sortProducts = (products, sortOrder) => {
@@ -67,7 +69,7 @@ function App() {
     return products;
   };
 
-  function filteredData(products, selected, query, sortOrder) {
+  function filteredData(products, selected, query, sortOrder, currentPage) {
     let filteredProducts = products;
 
     // Filtering Input Items
@@ -93,7 +95,15 @@ function App() {
     // Apply sorting
     filteredProducts = sortProducts(filteredProducts, sortOrder);
 
-    return filteredProducts.map(
+    // Pagination Logic
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredProducts.slice(
+      indexOfFirstItem,
+      indexOfLastItem
+    );
+
+    return currentItems.map(
       ({ img, title, star, reviews, prevPrice, newPrice }) => (
         <Card
           key={Math.random()}
@@ -108,7 +118,13 @@ function App() {
     );
   }
 
-  const result = filteredData(products, selectedCategory, query, sortOrder); // Ensure sortOrder is passed here
+  const result = filteredData(
+    products,
+    selectedCategory,
+    query,
+    sortOrder,
+    currentPage
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -127,6 +143,13 @@ function App() {
         handleSortChange={handleSortChange}
       />
       <Products result={result} />
+      <Pagination
+        products={products}
+        itemsPerPage={itemsPerPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+      <Footer />
     </>
   );
 }

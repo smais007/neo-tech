@@ -4,8 +4,11 @@ nav {
   justify-content: space-around;
   align-items: center;
   padding: 20px;
-  z-index: 999;
+  z-index: 10;
   margin-left: 2rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
 }
 
 input {

@@ -1,6 +1,6 @@
 import Category from "./Category/Category";
-import Price from "./Price/Price";
 import Colors from "./Colors/Colors";
+import Price from "./Price/Price";
 import "./Sidebar.css";
 
 const Sidebar = ({ handleChange }) => {
@@ -8,7 +8,7 @@ const Sidebar = ({ handleChange }) => {
     <>
       <section className="sidebar">
         <div className="logo-container">
-          <h1>🛒</h1>
+          <img src="./log.png"></img>
         </div>
         <Category handleChange={handleChange} />
         <Price handleChange={handleChange} />
