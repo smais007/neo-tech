@@ -1,5 +1,5 @@
-import "./Colors.css";
 import Input from "../../components/Input";
+import "./Colors.css";
 
 const Colors = ({ handleChange }) => {
   return (
@@ -14,7 +14,7 @@ const Colors = ({ handleChange }) => {
 
         <Input
           handleChange={handleChange}
-          value="black"
+          value="Black"
           title="Black"
           name="test1"
           color="black"
@@ -22,27 +22,27 @@ const Colors = ({ handleChange }) => {
 
         <Input
           handleChange={handleChange}
-          value="blue"
-          title="Blue"
-          name="test1"
-          color="blue"
-        />
-
-        <Input
-          handleChange={handleChange}
-          value="red"
-          title="Red"
-          name="test1"
-          color="red"
-        />
-
-        <Input
-          handleChange={handleChange}
-          value="green"
+          value="Green"
           title="Green"
           name="test1"
           color="green"
         />
+
+        <Input
+          handleChange={handleChange}
+          value="Gray"
+          title="Gray"
+          name="test1"
+          color="gray"
+        />
+
+        {/* <Input
+          handleChange={handleChange}
+          value="White"
+          title="White"
+          name="test1"
+          color="white"
+        /> */}
 
         <label className="sidebar-label-container">
           <input

@@ -1,5 +1,5 @@
-import "./Category.css";
 import Input from "../../components/Input";
+import "./Category.css";
 
 function Category({ handleChange }) {
   return (
@@ -13,26 +13,40 @@ function Category({ handleChange }) {
         </label>
         <Input
           handleChange={handleChange}
-          value="sneakers"
-          title="Sneakers"
+          value="accessory"
+          title="Accessory"
           name="test"
         />
         <Input
           handleChange={handleChange}
-          value="flats"
-          title="Flats"
+          value="camera"
+          title="Camera"
           name="test"
         />
         <Input
           handleChange={handleChange}
-          value="sandals"
-          title="Sandals"
+          value="earphone"
+          title="Eearphone"
           name="test"
         />
         <Input
           handleChange={handleChange}
-          value="heels"
-          title="Heels"
+          value="laptop"
+          title="Laptop"
+          name="test"
+        />
+        <Input
+          handleChange={handleChange}
+          value="phone"
+          title="Phone"
+          name="test"
+        />
+        <Input handleChange={handleChange} value="tv" title="TV" name="test" />
+
+        <Input
+          handleChange={handleChange}
+          value="watch"
+          title="Watch"
           name="test"
         />
       </div>

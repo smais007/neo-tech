@@ -1,3 +1,8 @@
+.top-bar {
+  display: flex;
+  align-items: center;
+}
+
 .recommended-flex {
   display: flex;
   margin-left: 20rem;
@@ -8,4 +13,21 @@
   margin-bottom: 20px;
   margin-top: 20px;
   font-size: 20px;
+}
+
+.sort {
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-title {
+  margin-left: 20rem;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.sort-flex {
+  display: flex;
+  margin-left: 20rem;
 }

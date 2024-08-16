@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
+import Card from "./components/Card";
+import "./index.css";
 import Navigation from "./Navigation/Nav";
 import Products from "./Products/Products";
 import Recommended from "./Recommended/Recommended";
 import Sidebar from "./Sidebar/Sidebar";
-import Card from "./components/Card";
-import "./index.css";
 
 function App() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [query, setQuery] = useState("");
+  const [sortOrder, setSortOrder] = useState(null); // Sorting state
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,13 +41,33 @@ function App() {
 
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
+    console.log(setSelectedCategory);
   };
 
   const handleClick = (event) => {
     setSelectedCategory(event.target.value);
+    console.log(setSelectedCategory);
   };
 
-  function filteredData(products, selected, query) {
+  const handleSortChange = (event) => {
+    setSortOrder(event.target.value); // Update sort order
+  };
+
+  const sortProducts = (products, sortOrder) => {
+    if (sortOrder === "highToLow") {
+      return products.sort(
+        (a, b) => parseInt(b.newPrice) - parseInt(a.newPrice)
+      );
+    }
+    if (sortOrder === "lowToHigh") {
+      return products.sort(
+        (a, b) => parseInt(a.newPrice) - parseInt(b.newPrice)
+      );
+    }
+    return products;
+  };
+
+  function filteredData(products, selected, query, sortOrder) {
     let filteredProducts = products;
 
     // Filtering Input Items
@@ -70,6 +90,9 @@ function App() {
       );
     }
 
+    // Apply sorting
+    filteredProducts = sortProducts(filteredProducts, sortOrder);
+
     return filteredProducts.map(
       ({ img, title, star, reviews, prevPrice, newPrice }) => (
         <Card
@@ -85,7 +108,7 @@ function App() {
     );
   }
 
-  const result = filteredData(products, selectedCategory, query);
+  const result = filteredData(products, selectedCategory, query, sortOrder); // Ensure sortOrder is passed here
 
   if (loading) {
     return <div>Loading...</div>;
@@ -99,7 +122,10 @@ function App() {
     <>
       <Sidebar handleChange={handleChange} />
       <Navigation query={query} handleInputChange={handleInputChange} />
-      <Recommended handleClick={handleClick} />
+      <Recommended
+        handleClick={handleClick}
+        handleSortChange={handleSortChange}
+      />
       <Products result={result} />
     </>
   );
