@@ -1,0 +1,33 @@
+Color: { Gray: 6, Silver: 8, White: 9, Black: 16, Green: 1 }
+
+Category: {
+  phone: 5,
+  laptop: 6,
+  tablet: 3,
+  earphone: 5,
+  watch: 3,
+  tv: 2,
+  console: 2,
+  camera: 3,
+  'smart home': 1,
+  'smart speaker': 1,
+  accessory: 5,
+  'media streaming': 1,
+  pc: 2,
+  'pc component': 1
+}
+
+Company: {
+    {
+  Apple: 10,
+  Samsung: 7,
+  Microsoft: 4,
+  Sony: 8,
+  Google: 5,
+  NVIDIA: 1,
+  Razer: 2,
+  Dell: 2,
+  Logitech: 1
+}
+
+}

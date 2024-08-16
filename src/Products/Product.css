@@ -11,11 +11,15 @@
   border: 2px solid #ededed;
   padding: 20px;
   cursor: pointer;
+  width: 250px;
 }
 
 .card-img {
-  width: 13rem;
+  width: 100%;
+  height: auto;
   margin-bottom: 1rem;
+  background-position: center;
+  background-size: cover;
 }
 
 .card-title {

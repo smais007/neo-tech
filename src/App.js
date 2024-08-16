@@ -1,33 +1,48 @@
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import Navigation from "./Navigation/Nav";
 import Products from "./Products/Products";
-import products from "./db/data";
 import Recommended from "./Recommended/Recommended";
 import Sidebar from "./Sidebar/Sidebar";
 import Card from "./components/Card";
 import "./index.css";
 
 function App() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // ----------- Input Filter -----------
+  const [selectedCategory, setSelectedCategory] = useState(null);
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "https://neo-tech-server.vercel.app/products"
+        );
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleInputChange = (event) => {
     setQuery(event.target.value);
   };
 
-  const filteredItems = products.filter(
-    (product) => product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
-  );
-
-  // ----------- Radio Filtering -----------
   const handleChange = (event) => {
     setSelectedCategory(event.target.value);
   };
 
-  // ------------ Button Filtering -----------
   const handleClick = (event) => {
     setSelectedCategory(event.target.value);
   };
@@ -37,7 +52,10 @@ function App() {
 
     // Filtering Input Items
     if (query) {
-      filteredProducts = filteredItems;
+      filteredProducts = filteredProducts.filter(
+        (product) =>
+          product.title.toLowerCase().indexOf(query.toLowerCase()) !== -1
+      );
     }
 
     // Applying selected filter
@@ -68,6 +86,14 @@ function App() {
   }
 
   const result = filteredData(products, selectedCategory, query);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <>
