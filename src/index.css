@@ -1,23 +1,17 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
 
-@layer base {
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-  }
+a {
+  text-decoration: none;
+  color: rgb(97, 97, 97);
+}
 
-  a {
-    text-decoration: none;
-    color: rgb(97, 97, 97);
-  }
-
-  li {
-    list-style: none;
-  }
+li {
+  list-style: none;
 }
 
 .btns {
@@ -29,26 +23,4 @@
   border-radius: 5px;
   color: #323232;
   cursor: pointer;
-}
-
-@layer components {
-  .btns {
-    @apply px-2 py-5 mr-[6px] bg-transparent border cursor-pointer;
-  }
-  .recommended-title {
-    @apply ml-5 mb-5 mt-5 text-xl;
-  }
-  .recommended-flex {
-    @apply flex ml-5;
-  }
-  .sidebar {
-    @apply w-[15%] fixed h-screen top-0 left-0 bg-white z-50;
-  }
-  .logo-container {
-    @apply mb-16;
-  }
-
-  .logo-container h1 {
-    @apply text-2xl;
-  }
 }
