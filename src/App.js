@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navigation from "./Navigation/Nav";
 import Products from "./Products/Products";
 import Recommended from "./Recommended/Recommended";
@@ -6,6 +7,9 @@ import Sidebar from "./Sidebar/Sidebar";
 import Card from "./components/Card";
 import Footer from "./components/Footer/Footer";
 import Pagination from "./components/Pagination";
+// import LoginPage from "./components/LoginPage"; // Import your LoginPage component
+import LoginPage from "./Authentication/Login";
+import SignupPage from "./Authentication/Signup";
 import "./index.css";
 
 function App() {
@@ -72,7 +76,6 @@ function App() {
   function filteredData(products, selected, query, sortOrder, currentPage) {
     let filteredProducts = products;
 
-    // Filtering Input Items
     if (query) {
       filteredProducts = filteredProducts.filter(
         (product) =>
@@ -80,7 +83,6 @@ function App() {
       );
     }
 
-    // Applying selected filter
     if (selected) {
       filteredProducts = filteredProducts.filter(
         ({ category, color, company, newPrice, title }) =>
@@ -92,10 +94,8 @@ function App() {
       );
     }
 
-    // Apply sorting
     filteredProducts = sortProducts(filteredProducts, sortOrder);
 
-    // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredProducts.slice(
@@ -135,22 +135,33 @@ function App() {
   }
 
   return (
-    <>
-      <Sidebar handleChange={handleChange} />
-      <Navigation query={query} handleInputChange={handleInputChange} />
-      <Recommended
-        handleClick={handleClick}
-        handleSortChange={handleSortChange}
-      />
-      <Products result={result} />
-      <Pagination
-        products={products}
-        itemsPerPage={itemsPerPage}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
-      <Footer />
-    </>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Sidebar handleChange={handleChange} />
+              <Navigation query={query} handleInputChange={handleInputChange} />
+              <Recommended
+                handleClick={handleClick}
+                handleSortChange={handleSortChange}
+              />
+              <Products result={result} />
+              <Pagination
+                products={products}
+                itemsPerPage={itemsPerPage}
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+              />
+              <Footer />
+            </>
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignupPage />} />
+      </Routes>
+    </Router>
   );
 }
 
