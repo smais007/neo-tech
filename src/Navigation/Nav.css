@@ -27,3 +27,11 @@ input {
   height: 1.5rem;
   margin-left: 2rem;
 }
+.button{
+  padding: 12px 20px;
+  background-color: #2e80ff;
+  border: none;
+  margin: 0 20px;
+  border-radius: 5px;
+  color: white;
+}

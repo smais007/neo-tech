@@ -1,9 +1,24 @@
-import { AiOutlineShoppingCart } from "react-icons/ai";
 import { FiHeart } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { AiOutlineShoppingCart, AiOutlineUserAdd } from "react-icons/ai";
 import "./Nav.css";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../components/provider/AuthProvider";
+import swal from "sweetalert";
 
 const Nav = ({ handleInputChange, query }) => {
+  const { user, logOut } = useContext(AuthContext); 
+  console.log('user', user)
+
+  const handleSignOut = () => {
+    logOut()
+    .then()
+    .catch()
+    swal({
+        text: "logout success",
+        icon: "success"
+      });
+}
   return (
     <nav>
       <div className="nav-container">
@@ -16,20 +31,28 @@ const Nav = ({ handleInputChange, query }) => {
         />
       </div>
       <div className="profile-container">
-        <a href="/">
+        <a href="#">
           <FiHeart className="nav-icons" />
         </a>
-        <a href="/">
+        <a href="">
           <AiOutlineShoppingCart className="nav-icons" />
         </a>
-        <div>
-          <Link to="/login">
-            <button className="btns">Log in</button>
-          </Link>
-          <Link to="/signup">
-            <button className="btns">Sign up</button>
-          </Link>
-        </div>
+        <a href="">
+          <AiOutlineUserAdd className="nav-icons" />
+        </a>
+        <a>
+          {user ? (
+            <button 
+            onClick={handleSignOut}
+            className="button" >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login">
+              <button className="button">Login</button>
+            </Link>
+          )}
+        </a>
       </div>
     </nav>
   );

@@ -1,5 +1,6 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import Navigation from "./Navigation/Nav";
 import Products from "./Products/Products";
 import Recommended from "./Recommended/Recommended";
@@ -7,10 +8,10 @@ import Sidebar from "./Sidebar/Sidebar";
 import Card from "./components/Card";
 import Footer from "./components/Footer/Footer";
 import Pagination from "./components/Pagination";
-// import LoginPage from "./components/LoginPage"; // Import your LoginPage component
-import LoginPage from "./Authentication/Login";
-import SignupPage from "./Authentication/Signup";
 import "./index.css";
+import Login from "./components/Authentication/Login";
+import Signup from "./components/Authentication/Signup";
+import AuthProvider from "./components/provider/AuthProvider";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -76,6 +77,7 @@ function App() {
   function filteredData(products, selected, query, sortOrder, currentPage) {
     let filteredProducts = products;
 
+    // Filtering Input Items
     if (query) {
       filteredProducts = filteredProducts.filter(
         (product) =>
@@ -83,6 +85,7 @@ function App() {
       );
     }
 
+    // Applying selected filter
     if (selected) {
       filteredProducts = filteredProducts.filter(
         ({ category, color, company, newPrice, title }) =>
@@ -94,8 +97,10 @@ function App() {
       );
     }
 
+    // Apply sorting
     filteredProducts = sortProducts(filteredProducts, sortOrder);
 
+    // Pagination Logic
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
     const currentItems = filteredProducts.slice(
@@ -135,7 +140,9 @@ function App() {
   }
 
   return (
-    <Router>
+    <>
+    <AuthProvider>
+     <Router>
       <Routes>
         <Route
           path="/"
@@ -158,10 +165,13 @@ function App() {
             </>
           }
         />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+
       </Routes>
     </Router>
+    </AuthProvider>
+    </>
   );
 }
 
